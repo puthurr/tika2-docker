@@ -2,7 +2,7 @@
 
 Contains a deployment of a custom tika 2.x server as a docker image. Please refer to https://github.com/puthurr/tika-fork for more details.
 
-Based on Apache Tika version : 2.2.2-SNAPSHOT 
+Based on Apache Tika version : 2.7.0 
 
 Refer to Apache Tika 2.x breaking changes documentation
 https://cwiki.apache.org/confluence/display/TIKA/Migrating+to+Tika+2.0.0

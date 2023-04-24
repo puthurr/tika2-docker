@@ -27,13 +27,13 @@ ENV LANG en_US.UTF-8
 #	
 # and place it on the same directory as the Dockerfile
 #
-ENV TIKA_VERSION 2.2.2-SNAPSHOT
+ENV TIKA_VERSION 2.7.0
 ENV TIKA_SERVER_PKG=tika-server-standard-$TIKA_VERSION.jar
 ENV TIKA_HOME=/usr/local
 
-ENV JAVA_VERSION=1.8.0_311 \
-	JAVA_PKG=server-jre-8u311-linux-x64.tar.gz \
-	JAVA_SHA256=4132d53f500fea109386a5734dc156468558d792082cfbd39f0a097e6f55e710 \
+ENV JAVA_VERSION=1.8.0_361 \
+	JAVA_PKG=server-jre-8u361-linux-x64.tar.gz \
+	JAVA_SHA256=413e658db77d33fc2587557d4b1093ca2268892d2c75e6298927db8bb8622d13 \
 	JAVA_HOME=/usr/java/jdk-8
 ENV	PATH $JAVA_HOME/bin:$PATH
 
@@ -41,9 +41,11 @@ ENV	PATH $JAVA_HOME/bin:$PATH
 COPY $JAVA_PKG /tmp/jdk.tgz
 COPY $TIKA_SERVER_PKG $TIKA_HOME
 
+# RUN set -eux; \
+# 	\
+# 	echo "$JAVA_SHA256 */tmp/jdk.tgz" | sha256sum -c -;
+
 RUN set -eux; \
-	\
-	echo "$JAVA_SHA256 */tmp/jdk.tgz" | sha256sum -c -; \
 	mkdir -p "$JAVA_HOME"; \
 	tar --extract --file /tmp/jdk.tgz --directory "$JAVA_HOME" --strip-components 1; \
 	rm /tmp/jdk.tgz; \
@@ -54,8 +56,10 @@ RUN set -eux; \
 		base="$(basename "$bin")"; \
 		[ ! -e "/usr/bin/$base" ]; \
 		alternatives --install "/usr/bin/$base" "$base" "$bin" 20000; \
-	done; \
+	done;
+
 # -Xshare:dump will create a CDS archive to improve startup in subsequent runs	
+RUN set -eux; \
 	java -Xshare:dump; \
 	java -version; \
 	javac -version
