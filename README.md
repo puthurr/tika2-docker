@@ -12,14 +12,14 @@ https://cwiki.apache.org/confluence/display/TIKA/Migrating+to+Tika+2.0.0
 ## Build the docker image using Docker runtime (example)
 
 ```
-docker build -f Dockerfile -t tika/serverX .
+docker build -f Dockerfile -t puthurr/tika2:2.7.0-20230704 .
 ```
 
 ## Build the docker image using Azure ACR
 
 ```
 ACR_NAME=<registry-name>
-az acr build --image tika/serverX --registry $ACR_NAME --file Dockerfile .
+az acr build --image puthurr/tika2:2.7.0-20230704 --registry $ACR_NAME --file Dockerfile .
 ```
 
 # Updating to a new Server JRE 
